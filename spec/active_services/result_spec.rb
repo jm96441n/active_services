@@ -21,6 +21,19 @@ RSpec.describe ActiveServices::Result do
     expect(subject).to respond_to(:errors)
   end
 
+  describe '.errors' do
+    context 'no errors' do
+      it 'should return an empry array is there are not errors' do
+        expect(subject.errors).to eq([])
+      end
+
+      it 'should return an array of error messages if there are errors' do
+        allow(model).to receive_message_chain(:errors, :full_messages).and_return(['I can\'t allow you to do that'])
+        expect(subject.errors).to eq(['I can\'t allow you to do that'])
+      end
+    end
+  end
+
   describe '.success' do
     context 'no errors' do
       it 'returns true when there are no errors' do
@@ -30,7 +43,7 @@ RSpec.describe ActiveServices::Result do
 
     context 'errors' do
       it 'returns false when there are errors' do
-        allow(model).to receive_message_chain(:errors, :full_messages).and_return(['I can\'t allow you to do that'])
+        allow(subject).to receive(:errors).and_return(['I can\'t allow you to do that'])
         expect(subject.success?).to be false
       end
     end
