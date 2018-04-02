@@ -1,14 +1,17 @@
 module ActiveServices
   class Result
-    attr_reader :model, :errors
+    attr_reader :model
 
     def initialize(model)
       @model = model
-      @errors = @model.errors.full_messages
+    end
+
+    def errors
+      @model.errors.full_messages
     end
 
     def success?
-      @errors.empty?
+      errors.empty?
     end
   end
 end
