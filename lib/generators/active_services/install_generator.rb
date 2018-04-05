@@ -6,7 +6,7 @@ module ActiveServices
 
       def copy_template
         template 'active_service_template.rb', 'app/services/active_service.rb'
-        puts 'Install complete! To start making your own service objects run the INSERT GENERATOR HERE to start making your own'
+        puts 'Install complete! To start making your own service objects run the "active_services:new MODEL SERVICE" generator to start making your own'
       end
     end
   end
